@@ -1,8 +1,3 @@
-# McCulloch-Pitts Neural Network
-# 3 Inputs: X1, X2, X3
-# Gates: AND, OR, NAND, NOR, XOR
-
-
 def mp_neuron(x1, x2, x3, w1, w2, w3, threshold):
     total = (x1 * w1) + (x2 * w2) + (x3 * w3)
 
@@ -12,22 +7,8 @@ def mp_neuron(x1, x2, x3, w1, w2, w3, threshold):
         return 0
 
 
-# ---------------- XOR FUNCTION ----------------
-# 3-input XOR gives 1 when the number of 1s is ODD.
-#
-# 000 -> 0
-# 001 -> 1
-# 010 -> 1
-# 011 -> 0
-# 100 -> 1
-# 101 -> 0
-# 110 -> 0
-# 111 -> 1
-
 def xor_3_input(x1, x2, x3):
-
-    # Hidden neurons detect exactly one 1
-
+    # Multi-layer network for 3-input XOR
     h1 = mp_neuron(x1, x2, x3, 1, -1, -1, 1)
     h2 = mp_neuron(x1, x2, x3, -1, 1, -1, 1)
     h3 = mp_neuron(x1, x2, x3, -1, -1, 1, 1)
@@ -51,93 +32,53 @@ print("1. AND")
 print("2. OR")
 print("3. NAND")
 print("4. NOR")
-print("5. XOR")
+print("5. XOR (Predefined Network)")
 
-choice = int(input("Enter gate choice: "))
+choice = int(input("Enter gate choice (1-5): "))
 
 x1 = int(input("Enter X1 (0 or 1): "))
 x2 = int(input("Enter X2 (0 or 1): "))
 x3 = int(input("Enter X3 (0 or 1): "))
-
 
 # Validate input
 if x1 not in [0, 1] or x2 not in [0, 1] or x3 not in [0, 1]:
     print("Inputs must be 0 or 1.")
     exit()
 
-
-# AND
-if choice == 1:
-
-    w1 = 1
-    w2 = 1
-    w3 = 1
-    threshold = 3
-
-    output = mp_neuron(x1, x2, x3, w1, w2, w3, threshold)
-
-    print("\nGate: AND")
-    print("Weights:", w1, w2, w3)
-    print("Threshold:", threshold)
-    print("Output:", output)
-
-
-# OR
-elif choice == 2:
-
-    w1 = 1
-    w2 = 1
-    w3 = 1
-    threshold = 1
+# Handle linearly separable gates (AND, OR, NAND, NOR)
+if choice in [1, 2, 3, 4]:
+    print("\n--- Enter Weights ---")
+    w1 = float(input("Enter weight W1: "))
+    w2 = float(input("Enter weight W2: "))
+    w3 = float(input("Enter weight W3: "))
+    
+    # Assign the hardcoded threshold based on the gate choice
+    if choice == 1:
+        gate_name = "AND"
+        threshold = 3
+    elif choice == 2:
+        gate_name = "OR"
+        threshold = 1
+    elif choice == 3:
+        gate_name = "NAND"
+        threshold = 1
+    elif choice == 4:
+        gate_name = "NOR"
+        threshold = 0
 
     output = mp_neuron(x1, x2, x3, w1, w2, w3, threshold)
+    
+    print(f"\nGate: {gate_name}")
+    print(f"Weights: {w1}, {w2}, {w3}")
+    print(f"Threshold: {threshold} ")
+    print(f"Output: {output}")
 
-    print("\nGate: OR")
-    print("Weights:", w1, w2, w3)
-    print("Threshold:", threshold)
-    print("Output:", output)
-
-
-# NAND
-elif choice == 3:
-
-    w1 = -1
-    w2 = -1
-    w3 = -1
-    threshold = -2
-
-    output = mp_neuron(x1, x2, x3, w1, w2, w3, threshold)
-
-    print("\nGate: NAND")
-    print("Weights:", w1, w2, w3)
-    print("Threshold:", threshold)
-    print("Output:", output)
-
-
-# NOR
-elif choice == 4:
-
-    w1 = -1
-    w2 = -1
-    w3 = -1
-    threshold = 0
-
-    output = mp_neuron(x1, x2, x3, w1, w2, w3, threshold)
-
-    print("\nGate: NOR")
-    print("Weights:", w1, w2, w3)
-    print("Threshold:", threshold)
-    print("Output:", output)
-
-
-# XOR
+# Handle XOR (Multi-layer)
 elif choice == 5:
-
     output = xor_3_input(x1, x2, x3)
 
     print("\nGate: 3-Input XOR")
-    print("Output:", output)
-
+    print(f"Output: {output}")
 
 else:
     print("Invalid choice!")
