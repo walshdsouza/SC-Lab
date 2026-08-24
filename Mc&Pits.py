@@ -8,15 +8,15 @@ def mp_neuron(x1, x2, x3, w1, w2, w3, threshold):
 
 
 def xor_3_input(x1, x2, x3):
-    # Multi-layer network for 3-input XOR
+    
     h1 = mp_neuron(x1, x2, x3, 1, -1, -1, 1)
     h2 = mp_neuron(x1, x2, x3, -1, 1, -1, 1)
     h3 = mp_neuron(x1, x2, x3, -1, -1, 1, 1)
 
-    # Hidden neuron detects all three 1s
+    
     h4 = mp_neuron(x1, x2, x3, 1, 1, 1, 3)
 
-    # Output neuron performs OR on hidden outputs
+    
     total = h1 + h2 + h3 + h4
 
     if total >= 1:
@@ -25,7 +25,6 @@ def xor_3_input(x1, x2, x3):
         return 0
 
 
-# ---------------- MAIN PROGRAM ----------------
 
 print("McCulloch-Pitts Neural Network")
 print("1. AND")
@@ -40,19 +39,19 @@ x1 = int(input("Enter X1 (0 or 1): "))
 x2 = int(input("Enter X2 (0 or 1): "))
 x3 = int(input("Enter X3 (0 or 1): "))
 
-# Validate input
+
 if x1 not in [0, 1] or x2 not in [0, 1] or x3 not in [0, 1]:
     print("Inputs must be 0 or 1.")
     exit()
 
-# Handle linearly separable gates (AND, OR, NAND, NOR)
+
 if choice in [1, 2, 3, 4]:
     print("\n--- Enter Weights ---")
     w1 = float(input("Enter weight W1: "))
     w2 = float(input("Enter weight W2: "))
     w3 = float(input("Enter weight W3: "))
     
-    # Assign the hardcoded threshold based on the gate choice
+    
     if choice == 1:
         gate_name = "AND"
         threshold = 3
@@ -73,7 +72,7 @@ if choice in [1, 2, 3, 4]:
     print(f"Threshold: {threshold} ")
     print(f"Output: {output}")
 
-# Handle XOR (Multi-layer)
+
 elif choice == 5:
     output = xor_3_input(x1, x2, x3)
 
